@@ -45,7 +45,7 @@ while(count < 5):
         #blur = cv.GaussianBlur(grayScale, (5, 5), 0)
         threshold = cv.threshold(blur, 127, 255, cv.THRESH_BINARY)[1]
         
-        circles = cv.HoughCircles(grayScale, cv.HOUGH_GRADIENT, 1.2, 100, param1=100, param2=50, minRadius=1, maxRadius=200)
+        circles = cv.HoughCircles(grayScale, cv.HOUGH_GRADIENT, 1.2, 100, param1=100, param2=50, minRadius=3, maxRadius=200)
         
         if circles is not None:
             # Convert circle data into ints
@@ -57,14 +57,14 @@ while(count < 5):
             # Draw circle around each circle
             for (x, y, r) in circles:
                 print('Found a circle!')
-                if r > 1:
+                if r > 3:
                     cv.circle(frame, (x, y), r, (0, 255, 0), 4)
                     
                     shape = "circle"
                     
                     if ((xPrevious and yPrevious) and 
-                        ((yPrevious * 0.95 > y or y > yPrevious * 1.05) or 
-                        (xPrevious * 0.95 > x or x > xPrevious * 1.05))):
+                        ((yPrevious * 0.9 > y or y > yPrevious * 1.1) or 
+                        (xPrevious * 0.9 > x or x > xPrevious * 1.1))):
                         count += 1
                         shapeOutput = shapeNameConverter(shape, shapeOutput)
                         print('Count: ' + str(count))
