@@ -10,26 +10,19 @@ class ShapeDetector:
 		# Minimum perimeter
 		if peri < 10:
 			return
-		vertices = cv.approxPolyDP(contours, 0.01 * peri, True)
+		vertices = cv.approxPolyDP(contours, 0.04 * peri, True)
 
 		if len(vertices) == 4:
 			(x,y, width, height) = cv.boundingRect(vertices)
 			ar = width / float(height)
-			# a square will have an aspect ratio that is approximately
-			# equal to one, otherwise, the shape is a rectangle
-			# shape = "square" if ar >= 0.95 and ar <= 1.05 else "rectangle"
-
 			shapeArea = cv.contourArea(contours)
-			# if 0.95 < area/ar < 1.05:
-				# shape = "square"
-			# else:
-			# 	shape = "plus"
-
 			squareArea = width * height
-			if squareArea > shapeArea:
-				shape = "plus"
-			else:
+			print('Square area: {}'.format(squareArea))
+			print('Shape area: {}'.format(shapeArea))
+			if 0.6 <= squareArea / shapeArea <= 2 :
 				shape = "square"
+			else:
+				shape = "plus"
 
 		elif len(vertices) == 7:
 			shape = "arrow"
@@ -38,6 +31,7 @@ class ShapeDetector:
 		else:
 			print('No shape found.')
 			return
+		
 		print(len(vertices))
 		print(shape)
 		return shape
