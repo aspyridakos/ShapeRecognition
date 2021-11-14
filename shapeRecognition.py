@@ -13,9 +13,13 @@ class ShapeDetector:
 			aspectRatio = float(width) / height
 
 			if aspectRatio >= 0.95 and aspectRatio <= 1.05:
-				shape = "square"
-
+				shape = "S"
+		elif len(vertices) == 6:
+			shape = "A"
+		elif len(vertices) == 12:
+			shape = "P"
 		else:
-			shape = "circle"
+			shape = "O"
+		print(shape)
 		return shape
 
