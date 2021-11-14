@@ -2,7 +2,7 @@ import numpy as np
 import cv2 as cv
 
 # Use video capture index 1 (0 = internal webcam, 1 = external webcam)
-capture = cv.VideoCapture(1)
+capture = cv.VideoCapture(1, cv.CAP_DSHOW)
 
 while(True):
       
